@@ -242,7 +242,6 @@ struct JsonTreeRow: View
 		}
 		label: 
 		{
-			let label = value.type
 			let color = value.textColour
 			
 			HStack(spacing: 0)
@@ -297,7 +296,7 @@ struct JsonTreeRow: View
 }
 
 
-struct JsonTreeView: View 
+public struct JsonTreeView: View 
 {
 	struct IdentifiableString : Identifiable
 	{
@@ -312,11 +311,18 @@ struct JsonTreeView: View
 	
 	let json : Json
 	var root : JsonNode		{	JsonNode.from(json: json)	}
-	var rootInitiallyExpanded = true 
-	var copyToClipboardButton = true
+	var rootInitiallyExpanded : Bool
+	var copyToClipboardButton : Bool
 	@State var popupMessage : IdentifiableString? 
 	
-	var body: some View 
+	public init(json:Json,rootInitiallyExpanded:Bool=true,copyToClipboardButton:Bool=true)
+	{
+		self.json = json
+		self.rootInitiallyExpanded = rootInitiallyExpanded
+		self.copyToClipboardButton = copyToClipboardButton
+	}
+	
+	public var body: some View 
 	{
 		VStack
 		{
